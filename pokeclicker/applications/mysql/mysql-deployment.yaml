@@ -32,14 +32,23 @@ spec:
           args:
             - "--ignore-db-dir=lost+found"
           env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: "UsHUQbXAXm"
             - name: MYSQL_DATABASE
               value: "pokeclicker"
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backend
+                  key: db_root_password
             - name: MYSQL_USER
-              value: "professoreich"
+              valueFrom:
+                secretKeyRef:
+                  name: backend
+                  key: db_username
             - name: MYSQL_PASSWORD
-              value: "ivysaur42"
+              valueFrom:
+                secretKeyRef:
+                  name: backend
+                  key: db_password
           ports:
             - containerPort: 3306
               name: mysql
